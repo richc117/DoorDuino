@@ -4,22 +4,6 @@
 DoorDuino is a simple backend prototype that simulates monitoring door open/close events using Python, PostgreSQL, and Flask — **no Arduino hardware required**.  
 This project includes a simulated collector, a PostgreSQL database, and a web dashboard to visualize door activity.
 
-door-monitor/
-├── README.md
-├── .gitignore
-├── arduino/
-│   └── door_sensor.ino
-├── backend/
-│   ├── collector.py        # reads from Arduino serial, writes to Postgres
-│   ├── server.py           # Flask web server
-│   ├── requirements.txt    # Python dependencies
-│   └── templates/
-│       └── index.html      # web UI
-└── db/
-    └── init.sql            # SQL to create table(s)
-
----
-
 ## 📘 How to Run This Project (Complete Guide)
 
 These instructions allow **anyone** to clone and run this project from scratch.
