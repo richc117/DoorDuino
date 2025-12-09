@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Door Activity</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
+    th { background: #f2f2f2; }
+    .OPEN { color: green; font-weight: bold; }
+    .CLOSED { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Door Activity</h1>
+  <p>Last 100 events</p>
+
+  <table id="events-table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>State</th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    async function loadEvents() {
+      const res = await fetch('/api/events');
+      const events = await res.json();
+      const tbody = document.querySelector('#events-table tbody');
+      tbody.innerHTML = '';
+
+      events.forEach(ev => {
+        const tr = document.createElement('tr');
+
+        const timeTd = document.createElement('td');
+        timeTd.textContent = new Date(ev.event_time).toLocaleString();
+        tr.appendChild(timeTd);
+
+        const stateTd = document.createElement('td');
+        stateTd.textContent = ev.state;
+        stateTd.className = ev.state;
+        tr.appendChild(stateTd);
+
+        const sourceTd = document.createElement('td');
+        sourceTd.textContent = ev.source || '';
+        tr.appendChild(sourceTd);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    loadEvents();
+    setInterval(loadEvents, 10000);
+  </script>
+</body>
+</html>
